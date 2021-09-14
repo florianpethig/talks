@@ -111,7 +111,7 @@ class: left, left
 
 - Open science
     - Open Science Fellowship by Wikimedia Foundation (2020)
-    - Open Science Grant by Open Science Office (2021)
+    - Open Science Grant by University of Mannheim (2021)
 
 ---
 class: left, left
@@ -125,7 +125,7 @@ class: left, left
 
 - Open science
     - **Open Science Fellowship by Wikimedia Foundation (2020)**
-    - Open Science Grant by Open Science Office (2021)
+    - Open Science Grant by University of Mannheim (2021)
 
 ---
 
@@ -172,6 +172,7 @@ ggplot(df_combined, aes(fill = ordered_fill, y = n, x = ordered)) +
   theme(axis.title.x = element_blank(), axis.title.y = element_blank(),
         panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
   scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
+  ggtitle("Dedicated tools for version control rarely used for datasets") +
   labs(fill = "Version control") +
   scale_fill_manual(values = c("#344966", "#7595A4", "#45635D", "#7A8F88", "#824F71"))
   #scale_fill_brewer(palette = "Greys")
@@ -189,7 +190,7 @@ class: left, left
 
 - Open science
     - Open Science Fellowship by Wikimedia Foundation (2020)
-    - **Open Science Grant by Open Science Office (2021)**
+    - **Open Science Grant by University of Mannheim (2021)**
 
 ---
 class: middle, center, inverse
