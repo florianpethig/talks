@@ -263,8 +263,17 @@ class: middle, center
 
 ```{r echo=FALSE}
 df_prereg <- read.csv('data/preregistrations.csv')
+
 df_prereg[is.na(df_prereg)] <- 0
-df_prereg_sub = subset(df_prereg, select = -c(X.,Year,AsPredicted,OSF,EGAP) )
+
+m <- subset(df_prereg, select = c(ManSci, MarkSci))
+cols <- max.col(m, ties.method = "first")
+vec <- colnames(m)[cols]
+vec[cols == 1 & m[, 1] != 1] <- ''
+
+df_prereg$Journal <- vec
+
+df_prereg_sub = subset(df_prereg, select = -c(X.,Year,ManSci,MarkSci) )
 head(df_prereg_sub, 20) %>%
   as.data.frame()
 ```
@@ -281,18 +290,18 @@ df_prereg$Journal <- vec
 
 bp <- ggplot(data = df_prereg, aes(x = Year, fill = Journal)) + 
   geom_bar() + 
-  ggtitle("Number of preregistered studies published per year") +
+  ggtitle("Number of papers with preregistered studies published per year") +
   scale_fill_manual(values = c("#344966", "#7595A4"))
 bp 
 ```
 
 ---
 class: middle, center
-# Number of preregistered studies per paper: **`r round(mean(df_prereg$Preregistrations), 2)`**
+# Number of preregistered studies per paper: **`r round(mean(df_prereg$Preregs), 2)`**
 
 ---
 ```{r echo=FALSE}
-n <- subset(df_prereg, select = c(AsPredicted,OSF,EGAP))
+n <- subset(df_prereg, select = c(AsPred.,OSF,EGAP))
 platfreq <- setNames(nm=c('Platform','Count'),stack(colSums(n))[2:1])
 
 # Create a basic bar
@@ -316,6 +325,19 @@ pie
 ```
 
 ---
+class: left, left
+
+#Key findings
+- Preregistrations increasingly prevalent in management research
+- Differences across fields, e.g., fewer preregistrations in IS
+- Exclusively for experimental research, no preregistrations for qualitative or archival studies found
+- Movement influenced by key researchers (Dr. Simonsohn and Dr. Simmons) and their former PhD students
+- AsPredicted has emerged as the main platform for preregistrations
+
+
+- **Next steps:** Expand sample and make it publicly available via zenodo
+
+---
 name: goodbye
 class: bottom
 background-color: #7A8F88
@@ -323,9 +345,9 @@ background-color: #7A8F88
 .pull-left[
 ### Sincere thanks to:
 + Oliver Eriksson
-+ Prof. Hartmut Hoehle
 + Dr. Ira Maschmann
 + Dr. Philipp Zumstein
++ Prof. Hartmut Hoehle
 ]
 
 .pull-right[
@@ -346,12 +368,12 @@ background-color: #7A8F88
 library(metathis)
 meta() %>%
   meta_description(
-    "Data version control."
+    "Preregistration in IS Research."
   ) %>% 
-  meta_name("github-repo" = "florianpethig/datavc") %>% 
+  meta_name("github-repo" = "florianpethig/talks") %>% 
   meta_viewport() %>% 
   meta_social(
-    title = "Data version control",
+    title = "Preregistration in IS Research",
     og_author = "Florian Pethig",
   )
 ```
