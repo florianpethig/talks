@@ -1,0 +1,358 @@
+---
+title: "Preregistration in Information Systems Research"
+subtitle: "Open Science Day 2021"
+author: Dr. Florian Pethig
+role: Assistant Professor (Habilitand)
+company: '@University of Mannheim'
+date: "2021-09-21"
+output:
+  xaringan::moon_reader:
+    anchor_sections: FALSE
+    css: ["default", "assets/css/my-theme.css", "assets/css/my-fonts.css"]
+    seal: false 
+    lib_dir: libs
+    nature:
+      slideNumberFormat: |
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
+          </div>
+        </div>
+      highlightStyle: solarized-light
+      highlightLanguage: ["r", "css", "yaml"]
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+    includes:
+      in_header: header.html  
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.path="figs/", echo=FALSE, warning=FALSE, message=FALSE, fig.retina=3, fig.asp=.5, out.width='100%', fig.showtext = TRUE, comment = NULL)
+
+# for cran plots
+library(cranlogs)
+library(tidyverse)
+
+# for fonts
+library(showtext)
+font_add_google("Bitter", "Bitter")
+showtext_auto()
+theme_set(theme_minimal(base_family = "Bitter"))
+
+# for colors
+pkg_colors <- c("palmerpenguins" = "#7899d4", 
+                "blogdown" = "#f5ab1f", 
+                "distill" = "#b74f6f")
+
+library(xaringanExtra)
+xaringanExtra::use_panelset()
+```
+
+class: title-slide, left, middle
+background-image: url("https://upload.wikimedia.org/wikipedia/commons/2/24/Check_Mark.png")
+background-position: right
+background-size: contain
+background-color: #FFFFFF
+
+.pull-left[
+
+# `r rmarkdown::metadata$title`
+
+## `r rmarkdown::metadata$subtitle`
+
+### `r rmarkdown::metadata$author`
+
+### `r rmarkdown::metadata$date`
+
+#### Layout based on [apreshill](https://github.com/apreshill/talks/tree/master/ares-kind-tools). Image [source](https://commons.wikimedia.org/wiki/File:Check_Mark.png).
+
+]
+
+---
+class: middle, center, inverse
+
+## .big-text[Hello.]
+
+---
+name: hello
+class: middle, center, inverse
+
+
+### `r rmarkdown::metadata$author`
+
+<img style="border-radius: 50%;" src="https://upload.wikimedia.org/wikipedia/commons/e/e8/Florian_Pethig.jpg" width="150px"/>
+
+### `r rmarkdown::metadata$role`
+
+### `r rmarkdown::metadata$company`
+
+[`r fontawesome::fa("github")` @florianpethig](https://github.com/florianpethig)    
+[`r fontawesome::fa("twitter")` @florianpethig](https://twitter.com/florianpethig)   
+[`r fontawesome::fa("envelope")` pethig@uni-mannheim.de](mailto:pethig@uni-mannheim.de)
+
+---
+class: left, left
+
+# Research interests
+
+- Societal impact of IS
+- Data analytics
+- Technology acceptance
+
+---
+class: left, left
+
+# Research interests
+
+- Societal impact of IS
+- Data analytics
+- Technology acceptance
+
+
+- Open science
+    - Open Science Fellowship by Wikimedia Foundation (2020)
+    - Open Science Grant by Open Science Office (2021)
+
+---
+class: left, left
+
+# Research interests
+
+- Societal impact of IS
+- Data analytics
+- Technology acceptance
+
+
+- Open science
+    - **Open Science Fellowship by Wikimedia Foundation (2020)**
+    - Open Science Grant by Open Science Office (2021)
+
+---
+
+background-image: url(images/git_for_data.png)
+background-size: 60%
+background-position: top
+class: bottom, center, inverse
+background-color: #824F71
+
+#### From "is there" to "do we need" git for data?
+
+.footnote[[Source](https://opendata.stackexchange.com/questions/748/is-there-a-git-for-data)]
+
+---
+class: middle, center
+
+```{r vercon}
+df_combined <- read.csv('data/vercon.csv')
+
+df_combined$ordered <-
+  factor(
+    df_combined$type,
+    levels = c(
+      "Manuscript \n (e.g., Word, LaTeX)",
+      "Data analysis \n (e.g., py script, DO-file)",
+      "Dataset \n (e.g., csv, dta, xls)"
+    )
+  )
+
+df_combined$ordered_fill <-
+  factor(
+    df_combined$vercon,
+    levels = c(
+      "Specific tools (e.g., GitHub)",
+      "Different file names (v1, v2)",
+      "Version control of cloud storage",
+      "Other",
+      "None"
+    )
+  )
+
+ggplot(df_combined, aes(fill = ordered_fill, y = n, x = ordered)) +
+  geom_bar(position = "fill", stat = "identity") +
+  theme(axis.title.x = element_blank(), axis.title.y = element_blank(),
+        panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
+  labs(fill = "Version control") +
+  scale_fill_manual(values = c("#344966", "#7595A4", "#45635D", "#7A8F88", "#824F71"))
+  #scale_fill_brewer(palette = "Greys")
+```
+
+---
+class: left, left
+
+# Research interests
+
+- Societal impact of IS
+- Data analytics
+- Technology acceptance
+
+
+- Open science
+    - Open Science Fellowship by Wikimedia Foundation (2020)
+    - **Open Science Grant by Open Science Office (2021)**
+
+---
+class: middle, center, inverse
+
+# Stereotypes and Evaluations on Online Platforms: An Open and **Preregistered** Field Experiment
+
+---
+
+background-image:url(https://upload.wikimedia.org/wikipedia/commons/1/14/Barbara_McClintock_%281902-1992%29_shown_in_her_laboratory_in_1947.jpg)
+background-size: contain
+background-position: right
+
+.left-column[
+
+> Preregistration is defined as "committing to analytic steps without advance knowledge of the research outcomes" ([Nosek et al., 2018, p. 2601](https://www.pnas.org/content/pnas/115/11/2600.full.pdf)).
+]
+
+.footnote[[Source](https://commons.wikimedia.org/wiki/File:Barbara_McClintock_%281902-1992%29_shown_in_her_laboratory_in_1947.jpg)]
+
+---
+class: middle, center
+
+# **Q:** How many preregistered studies are currently published in the top 8 IS journals ("basket of 8")?
+
+---
+class: middle, center
+
+# **Q:** How many preregistered studies are currently published in the top 8 IS journals ("basket of 8")?
+# **A:** 1
+
+---
+
+background-image: url(images/misq.png)
+background-size: 60%
+background-position: top
+class: bottom, center, inverse
+background-color: #7A8F88
+
+.footnote[[Source](https://www.misq.org/will-humans-in-the-loop-become-borgs-merits-and-pitfalls-of-working-with-ai.html)]
+
+---
+class: left, left
+
+## So nobody cares about preregistrations in IS?
+
+---
+class: left, left
+
+## So nobody cares about preregistrations in IS?
+## Yes, they do. Things are gradually changing.
+
+---
+class: left, left
+
+## So nobody cares about preregistrations in IS?
+## Yes, they do. Things are gradually changing.
+## For example:
+
+- 2015: Start of new journal [AIS Transactions on Replication Research](https://aisel.aisnet.org/trr/)
+- 2018: Launch of [information systems replication project](https://aisel.aisnet.org/misq/vol44/iss3/2/)
+- 2019: Introduction of registered reports in [Business & Information Systems Engineering](http://www.bise-journal.com/?page_id=1747)
+- 2021: New guidelines for research transparency in [MIS Quarterly](https://aisel.aisnet.org/misq/vol45/iss2/2/)
+
+---
+
+class: middle, center
+
+# We looked beyond IS to Management and Marketing.
+
+---
+
+```{r echo=FALSE}
+df_prereg <- read.csv('data/preregistrations.csv')
+df_prereg[is.na(df_prereg)] <- 0
+df_prereg_sub = subset(df_prereg, select = -c(X.,Year,AsPredicted,OSF,EGAP) )
+head(df_prereg_sub, 20) %>%
+  as.data.frame()
+```
+
+---
+
+```{r echo=FALSE}
+m <- subset(df_prereg, select = c(ManSci, MarkSci))
+cols <- max.col(m, ties.method = "first")
+vec <- colnames(m)[cols]
+vec[cols == 1 & m[, 1] != 1] <- ''
+
+df_prereg$Journal <- vec
+
+bp <- ggplot(data = df_prereg, aes(x = Year, fill = Journal)) + 
+  geom_bar() + 
+  ggtitle("Number of preregistered studies published per year") +
+  scale_fill_manual(values = c("#344966", "#7595A4"))
+bp 
+```
+
+---
+class: middle, center
+# Number of preregistered studies per paper: **`r round(mean(df_prereg$Preregistrations), 2)`**
+
+---
+```{r echo=FALSE}
+n <- subset(df_prereg, select = c(AsPredicted,OSF,EGAP))
+platfreq <- setNames(nm=c('Platform','Count'),stack(colSums(n))[2:1])
+
+# Create a basic bar
+pie = ggplot(platfreq, aes(x="", y=Count, fill=Platform)) + geom_bar(stat="identity", width=1)
+ 
+# Convert to pie (polar coordinates) and add labels
+pie = pie + coord_polar("y", start=0) + geom_text(aes(label = paste0(round(Count/75*100), "%")), position = position_stack(vjust = 0.5))
+ 
+# Add color scale (hex colors)
+pie = pie + scale_fill_manual(values=c("#344966", "#7595A4", "#45635D")) 
+ 
+# Remove labels and add title
+pie = pie + ggtitle("Distribution of platforms used for preregistration") + labs(x=NULL, y=NULL)
+ 
+# Tidy up the theme
+pie = pie + theme(axis.line = element_blank(),
+          axis.text = element_blank(),
+          axis.ticks = element_blank())
+
+pie
+```
+
+---
+name: goodbye
+class: bottom
+background-color: #7A8F88
+
+.pull-left[
+### Sincere thanks to:
++ Oliver Eriksson
++ Prof. Hartmut Hoehle
++ Dr. Ira Maschmann
++ Dr. Philipp Zumstein
+]
+
+.pull-right[
+.right[
+<img style="border-radius: 50%;" src="https://upload.wikimedia.org/wikipedia/commons/e/e8/Florian_Pethig.jpg" width="150px"/>
+
+# Thank you!
+
+### Contact me at...
+
+[`r fontawesome::fa("twitter")` @florianpethig](http://twitter.com/florianpethig)  
+[`r fontawesome::fa("github")` @florianpethig](http://github.com/florianpethig)  
+[`r fontawesome::fa("envelope")` pethig@uni-mannheim.de](mailto:pethig@uni-mannheim.de)
+]
+]
+
+```{r include=FALSE}
+library(metathis)
+meta() %>%
+  meta_description(
+    "Data version control."
+  ) %>% 
+  meta_name("github-repo" = "florianpethig/datavc") %>% 
+  meta_viewport() %>% 
+  meta_social(
+    title = "Data version control",
+    og_author = "Florian Pethig",
+  )
+```
+

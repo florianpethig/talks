@@ -1,0 +1,27 @@
+"type","vercon","n"
+"Manuscript 
+ (e.g., Word, LaTeX)","Specific tools (e.g., GitHub)",4
+"Manuscript 
+ (e.g., Word, LaTeX)","Different file names (v1, v2)",9
+"Manuscript 
+ (e.g., Word, LaTeX)","Version control of cloud storage",7
+"Data analysis 
+ (e.g., py script, DO-file)","Specific tools (e.g., GitHub)",9
+"Data analysis 
+ (e.g., py script, DO-file)","Different file names (v1, v2)",3
+"Data analysis 
+ (e.g., py script, DO-file)","Version control of cloud storage",3
+"Data analysis 
+ (e.g., py script, DO-file)","Other",2
+"Data analysis 
+ (e.g., py script, DO-file)","None",1
+"Dataset 
+ (e.g., csv, dta, xls)","Specific tools (e.g., GitHub)",4
+"Dataset 
+ (e.g., csv, dta, xls)","Different file names (v1, v2)",8
+"Dataset 
+ (e.g., csv, dta, xls)","Version control of cloud storage",3
+"Dataset 
+ (e.g., csv, dta, xls)","Other",1
+"Dataset 
+ (e.g., csv, dta, xls)","None",1
